@@ -1,0 +1,46 @@
+/* * {
+    border: 1px solid;
+} */
+h1 {
+    text-align: center;
+}
+
+
+#top-toolbar {
+    height: 2em;
+    background-color: peachpuff;
+    display: flex;
+}
+
+.dropdown-button {
+    
+    background-color: whitesmoke;
+    height: 100% ;
+    
+}
+
+
+
+.dropdown-content {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 15px;
+    display: none;
+    z-index: 1;
+    background-color: whitesmoke;
+}
+
+.dropdown-content::before {
+    border-bottom: 15px solid whitesmoke;
+    display: block;
+    width: 15px;
+    height: 15px;
+    box-sizing: border-box;
+    left: 15px;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    content: '';
+    position: absolute;
+    top: -15px;
+}
