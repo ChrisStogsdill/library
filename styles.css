@@ -13,11 +13,17 @@ h1 {
 }
 
 .dropdown-button {
-    
+    margin-left: 15px;
     background-color: whitesmoke;
     height: 100% ;
-    
+    border: none;
+     
 }
+
+.dropdown-button:active {
+    color: blue;
+}
+
 
 
 
@@ -29,6 +35,8 @@ h1 {
     display: none;
     z-index: 1;
     background-color: whitesmoke;
+    padding: 5px;
+    border-radius: 4px;
 }
 
 .dropdown-content::before {

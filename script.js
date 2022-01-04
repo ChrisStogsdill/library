@@ -29,3 +29,7 @@ bookFormSubmit.addEventListener('click', () => {
     bookFormDropdown.style.display = 'none';
 });
 
+function formTest(event, inputText) {
+    
+    alert(document.forms["book-form"].title.value)
+}
