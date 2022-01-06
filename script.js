@@ -15,7 +15,14 @@ function Book(title, author, pages, readStatus) {
     this.readStatus = readStatus
 }
 
-Book.prototype.info = function() {return `${this.title}, ${this.author}, ${this.pages}, ${this.readStatus}`};
+Book.prototype.toggleReadStatus = function() {
+    if (this.readStatus == 'read') {
+        this.readStatus = 'unread'
+    }
+    else {
+        this.readStatus = 'read'
+    }
+};
 
 function addBookToLibrary(newBook) {
     myLibrary.push(newBook)
@@ -39,12 +46,16 @@ function updateWebpageBookList () {
                 //fill out the just created div with the info of the book at the index of the loop
                 tableContainer.lastElementChild.lastElementChild.innerText = `${bookKeys[p]}: ${bookValues[p]}`;
             }
+            //add the toggle button
+            tableContainer.lastElementChild.appendChild(document.createElement('button')).innerText = 'read/unread';
+            tableContainer.lastElementChild.lastElementChild.classList.add('toggle-read')
             //add the delete button
             tableContainer.lastElementChild.appendChild(document.createElement('button')).innerText = 'delete';
             tableContainer.lastElementChild.lastElementChild.classList.add('delete-button')
         }
 
     setupDeleteButtons()
+    setupReadStatusToggle();
      
 }
 
@@ -54,7 +65,8 @@ function setupDeleteButtons() {
         for (button of document.querySelectorAll('.delete-button')) {
             button.addEventListener('click', (clickEvent) => {
                 //this creates an array of all the book list divs by finding the click event target, 
-                //then going 2 parents up.
+                //then going 2 parents up. then uses that to find the index position that will 
+                //correspond with myLibrary
                 let webpageBookListArray = Array.from(clickEvent.target.parentElement.parentElement.children)
                 let buttonParentIndexLocation = webpageBookListArray.indexOf(clickEvent.target.parentElement)
                 myLibrary.splice(buttonParentIndexLocation, 1)
@@ -62,6 +74,17 @@ function setupDeleteButtons() {
             })
         }
 } 
+
+function setupReadStatusToggle() {
+    for(button of document.querySelectorAll('.toggle-read')) {
+        button.addEventListener('click', (clickEvent) => {
+            let webpageBookListArray = Array.from(clickEvent.target.parentElement.parentElement.children)
+            let buttonParentIndexLocation = webpageBookListArray.indexOf(clickEvent.target.parentElement)
+            myLibrary[buttonParentIndexLocation].toggleReadStatus()
+            updateWebpageBookList();
+        })
+    }
+}
 
 
 addBookButton.addEventListener('click', () => {
@@ -79,9 +102,16 @@ bookFormSubmit.addEventListener('click', () => {
 
 
 bookFormDropdown.addEventListener('submit', (e) => {
+    let readStatusConversion = '';
+    if (bookForm.read.value == 1) {
+        readStatusConversion = 'read'
+    }
+    else {
+        readStatusConversion = 'unread'
+    }
     e.preventDefault();
     let formBook = new Book(bookForm.title.value, bookForm.author.value, 
-                            bookForm.pages.value, bookForm.read.value)
+                            bookForm.pages.value, readStatusConversion)
     myLibrary.push(formBook)    
 
     updateWebpageBookList();
