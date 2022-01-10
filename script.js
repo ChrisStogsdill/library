@@ -8,21 +8,40 @@ const allDeleteButtons = document.querySelectorAll('.delete-button')
 const bookForm = document.forms["book-form"];
 const newDiv = document.createElement('div')
 
-function Book(title, author, pages, readStatus) {
+class Book {
+    constructor (title, author, pages, readStatus) {
     this.title = title
     this.author = author
     this.pages = pages
     this.readStatus = readStatus
-}
+    }
+    toggleReadStatus() {
+        if (this.readStatus == 'read') {
+            this.readStatus = 'unread'
+        }
+        else {
+            this.readStatus = 'read'
+        }
+    };
+    }
 
-Book.prototype.toggleReadStatus = function() {
-    if (this.readStatus == 'read') {
-        this.readStatus = 'unread'
-    }
-    else {
-        this.readStatus = 'read'
-    }
-};
+
+
+// function Book(title, author, pages, readStatus) {
+//     this.title = title
+//     this.author = author
+//     this.pages = pages
+//     this.readStatus = readStatus
+// }
+
+// Book.prototype.toggleReadStatus = function() {
+//     if (this.readStatus == 'read') {
+//         this.readStatus = 'unread'
+//     }
+//     else {
+//         this.readStatus = 'read'
+//     }
+// };
 
 function addBookToLibrary(newBook) {
     myLibrary.push(newBook)
